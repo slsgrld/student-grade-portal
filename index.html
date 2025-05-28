@@ -185,6 +185,11 @@
                     <li>Total of 16 sessions = 24 hours</li>
                     <li>20% threshold = 4.8 hours (more than 3 absences)</li>
                 </ul>
+                <div class="mt-4 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+    <p class="text-sm text-yellow-800 font-medium">
+        ⚠️ Note: For the purpose of academic leniency, students were considered unofficially dropped only if their absences reached at least <strong>50% of the total sessions</strong>, instead of the 20% threshold stated in the official policy.
+    </p>
+            </div>
             </div>
         </div>
     </div>
@@ -1377,10 +1382,7 @@
                     <!-- Attendance Record -->
                     <div class="mb-8 p-6 bg-white rounded-lg border border-gray-200 shadow-md ${isAbsenceExcessive ? 'attendance-warning' : ''} section-attendance">
                         <h3 class="text-xl font-semibold mb-4 text-gray-800">Attendance Record</h3>
-                        <p class="text-sm text-gray-600 italic mb-4">
-                           Note: For leniency, students were dropped only if their absences reached 50% of the total class sessions.
-                        </p>
-
+                       
                         ${isAbsenceExcessive ? `
                         <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
                             <div class="flex items-center">
