@@ -244,954 +244,980 @@
     </div>
     
     <script>
-        // Student data from the provided CSV
-        const students = [
-            {
-                studentNumber: "C202402857",
-                name: "Abalos, Sean Adrielee S.",
-                attendance: 8,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Unofficially Dropped",
-                remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+          // Student data from the provided CSV
+                const students = [
+                   {
+            studentNumber: "C202402857",
+            name: "Abalos, Sean Adrielee S.",
+            attendance: 8,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401009",
-                name: "Adriano, Precious Iya C.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.23,
-                    recitation: 9.1,
-                    quizzes: 17.0,
-                    exam: 27.8,
-                    average: 91.0,
-                    grade: 1.9
-                },
-                final: {
-                    studentship: 9.65,
-                    activities: 23.4,
-                    recitation: 8.0,
-                    quizzes: 17.6,
-                    exam: 27.9,
-                    average: 80.79,
-                    grade: 2.7
-                },
-                finalGradeAverage: 85.29,
-                finalGradeEquivalent: 2.3,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402875",
-                name: "Apostol, Roy S.",
-                attendance: 13,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4."
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Unofficially Dropped",
+            remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+        },
+        {
+            studentNumber: "C202401009",
+            name: "Adriano, Precious Iya C.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.23,
+                recitation: 9.10,
+                quizzes: 17.00,
+                exam: 27.00,
+                average: 90.13,
+                grade: 2.00
             },
-            {
-                studentNumber: "C202406811",
-                name: "Batas, Anthony A.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.07,
-                    recitation: 9.3,
-                    quizzes: 16.35,
-                    exam: 24.4,
-                    average: 87.13,
-                    grade: 2.3
-                },
-                final: {
-                    studentship: 8.72,
-                    activities: 21.0,
-                    recitation: 7.3,
-                    quizzes: 17.6,
-                    exam: 29.0,
-                    average: 84.0,
-                    grade: 2.5
-                },
-                finalGradeAverage: 85.57,
-                finalGradeEquivalent: 2.4,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: 9.68,
+                activities: 28.60,
+                recitation: 8.20,
+                quizzes: 16.42,
+                exam: 25.20,
+                average: 88.10,
+                grade: 2.20
             },
-            {
-                studentNumber: "C202401804",
-                name: "Buhay, Adrian Zandler",
-                attendance: 16,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report for Activity 4."
+            finalGradeAverage: 89.12,
+            finalGradeEquivalent: 2.10,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402875",
+            name: "Apostol, Roy S.",
+            attendance: 13,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402858",
-                name: "Bustos, Bryan James M.",
-                attendance: 13,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4."
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402778",
-                name: "Cabigting, Cler Joco S.",
-                attendance: 11,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report for Activity 4. "
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202406811",
+            name: "Batas, Anthony A.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.07,
+                recitation: 9.30,
+                quizzes: 16.35,
+                exam: 24.40,
+                average: 87.13,
+                grade: 2.30
             },
-            {
-                studentNumber: "C202403026",
-                name: "Castro, Alyssa Jionna G.",
-                attendance: 16,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4. "
+            final: {
+                studentship: 8.72,
+                activities: 21.00,
+                recitation: 7.30,
+                quizzes: 17.60,
+                exam: 29.00,
+                average: 84.00,
+                grade: 2.50
             },
-            {
-                studentNumber: "C202403206",
-                name: "Celestino, Justine Gabriel M.",
-                attendance: 15,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: " Did not submit the report and video for Activity 4. "
+            finalGradeAverage: 85.57,
+            finalGradeEquivalent: 2.40,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202401804",
+            name: "Buhay, Adrian Zander",
+            attendance: 16,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402164",
-                name: "Clemente, Hasley D.",
-                attendance: 16,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.3,
-                    recitation: 9.1,
-                    quizzes: 17.6,
-                    exam: 28.5,
-                    average: 92.3,
-                    grade: 1.8
-                },
-                final: {
-                    studentship: 9.92,
-                    activities: 23.3,
-                    recitation: 8.0,
-                    quizzes: 18.0,
-                    exam: 29.1,
-                    average: 92.28,
-                    grade: 1.8
-                },
-                finalGradeAverage: 92.29,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402376",
-                name: "Cosio, Angelica J.",
-                attendance: 15,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: " Did not submit the report and video for Activity 4. "
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report for Activity 4."
+        },
+        {
+            studentNumber: "C202402858",
+            name: "Bustos, Bryan James M.",
+            attendance: 13,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402378",
-                name: "Daludgug, Jules Andrei M.",
-                attendance: 7,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Unofficially Dropped",
-                remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401070",
-                name: "David, Thea Destiny M.",
-                attendance: 16,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.0,
-                    recitation: 9.2,
-                    quizzes: 18.3,
-                    exam: 28.5,
-                    average: 92.01,
-                    grade: 1.8
-                },
-                final: {
-                    studentship: 9.43,
-                    activities: 23.3,
-                    recitation: 8.3,
-                    quizzes: 18.0,
-                    exam: 28.4,
-                    average: 91.98,
-                    grade: 1.8
-                },
-                finalGradeAverage: 92.0,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202402778",
+            name: "Cabigting, Cler Joco S.",
+            attendance: 11,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402167",
-                name: "Dela Cruz, Jamella N.",
-                attendance: 8,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Unofficially Dropped",
-                remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401258",
-                name: "Del Rosario, Alljen",
-                attendance: 16,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4. "
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report for Activity 4."
+        },
+        {
+            studentNumber: "C202403026",
+            name: "Castro, Alyssa Jionna G.",
+            attendance: 16,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.30,
+                recitation: 9.20,
+                quizzes: 16.80,
+                exam: 28.00,
+                average: 90.10,
+                grade: 2.00
             },
-            {
-                studentNumber: "C202401689",
-                name: "Divinagracia, Roxanne D.",
-                attendance: 13,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.0,
-                    recitation: 9.1,
-                    quizzes: 15.45,
-                    exam: 24.3,
-                    average: 85.65,
-                    grade: 2.5
-                },
-                final: {
-                    studentship: 9.04,
-                    activities: 21.0,
-                    recitation: 7.0,
-                    quizzes: 16.13,
-                    exam: 28.0,
-                    average: 86.57,
-                    grade: 2.4
-                },
-                finalGradeAverage: 86.11,
-                finalGradeEquivalent: 2.4,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: 9.94,
+                activities: 23.60,
+                recitation: 7.90,
+                quizzes: 17.30,
+                exam: 28.65,
+                average: 89.73,
+                grade: 2.00
             },
-            {
-                studentNumber: "C202402112",
-                name: "Esguerra, Shayne Raven M.",
-                attendance: 8,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Unofficially Dropped",
-                remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+            finalGradeAverage: 89.91,
+            finalGradeEquivalent: 2.00,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202403206",
+            name: "Celestino, Justine Gabriel M.",
+            attendance: 15,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401274",
-                name: "Franco, Althea Faye M.",
-                attendance: 13,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4."
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202403284",
-                name: "Frigillana, Casandrianne Jahnea A.",
-                attendance: 15,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the video for Activity 4. "
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202402164",
+            name: "Clemente, Hasley D.",
+            attendance: 16,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.30,
+                recitation: 9.10,
+                quizzes: 17.60,
+                exam: 28.50,
+                average: 92.30,
+                grade: 1.80
             },
-            {
-                studentNumber: "C202402151",
-                name: "Geronimo, Eric Z.",
-                attendance: 10,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4. "
+            final: {
+                studentship: 9.92,
+                activities: 23.30,
+                recitation: 8.00,
+                quizzes: 18.00,
+                exam: 29.10,
+                average: 92.28,
+                grade: 1.80
             },
-            {
-                studentNumber: "C202401622",
-                name: "Ibay, Mark Leo H.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.2,
-                    recitation: 9.3,
-                    quizzes: 17.3,
-                    exam: 27.3,
-                    average: 89.5,
-                    grade: 2.1
-                },
-                final: {
-                    studentship: 9.93,
-                    activities: 25.0,
-                    recitation: 7.4,
-                    quizzes: 16.95,
-                    exam: 27.8,
-                    average: 87.19,
-                    grade: 2.3
-                },
-                finalGradeAverage: 88.34,
-                finalGradeEquivalent: 2.2,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: 92.29,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402376",
+            name: "Cosio, Angelica J.",
+            attendance: 15,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402868",
-                name: "Lopez, Luzlyn Ghed",
-                attendance: 14,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 27.97,
-                    recitation: 9.3,
-                    quizzes: 18.3,
-                    exam: 28.0,
-                    average: 92.57,
-                    grade: 1.8
-                },
-                final: {
-                    studentship: 9.43,
-                    activities: 23.6,
-                    recitation: 8.3,
-                    quizzes: 15.98,
-                    exam: 28.9,
-                    average: 92.01,
-                    grade: 1.8
-                },
-                finalGradeAverage: 92.29,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202403347",
-                name: "Magalang, Kris Joanna B.",
-                attendance: 16,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 27.57,
-                    recitation: 9.4,
-                    quizzes: 18.5,
-                    exam: 29.7,
-                    average: 93.97,
-                    grade: 1.7
-                },
-                final: {
-                    studentship: 9.99,
-                    activities: 29.7,
-                    recitation: 8.5,
-                    quizzes: 17.0,
-                    exam: 29.9,
-                    average: 94.99,
-                    grade: 1.6
-                },
-                finalGradeAverage: 94.48,
-                finalGradeEquivalent: 1.6,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202402378",
+            name: "Daludgug, Jules Andrei M.",
+            attendance: 7,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            // Part 2 data
-            {
-                studentNumber: "C202401189",
-                name: "Maglaqui, Jerryl Jane F.",
-                attendance: 7,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Unofficially Dropped",
-                remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401010",
-                name: "Marcial, Estephanie Megs S.",
-                attendance: 14,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.33,
-                    recitation: 9.3,
-                    quizzes: 15.8,
-                    exam: 23.7,
-                    average: 85.93,
-                    grade: 2.5
-                },
-                final: {
-                    studentship: 9.41,
-                    activities: 28.6,
-                    recitation: 7.6,
-                    quizzes: 15.07,
-                    exam: 25.2,
-                    average: 86.48,
-                    grade: 2.4
-                },
-                finalGradeAverage: 86.21,
-                finalGradeEquivalent: 2.4,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Unofficially Dropped",
+            remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+        },
+        {
+            studentNumber: "C202401070",
+            name: "David, Thea Destiny M.",
+            attendance: 16,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.00,
+                recitation: 9.20,
+                quizzes: 18.30,
+                exam: 28.50,
+                average: 92.01,
+                grade: 1.80
             },
-            {
-                studentNumber: "C202402196",
-                name: "Mercado, Charmine O.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.03,
-                    recitation: 9.3,
-                    quizzes: 18.1,
-                    exam: 28.8,
-                    average: 93.33,
-                    grade: 1.7
-                },
-                final: {
-                    studentship: 9.96,
-                    activities: 28.8,
-                    recitation: 8.0,
-                    quizzes: 16.51,
-                    exam: 27.9,
-                    average: 90.77,
-                    grade: 2.0
-                },
-                finalGradeAverage: 91.9,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: 9.43,
+                activities: 23.30,
+                recitation: 8.30,
+                quizzes: 18.00,
+                exam: 28.40,
+                average: 91.98,
+                grade: 1.80
             },
-            {
-                studentNumber: "C202401919",
-                name: "Mercado, Nica G.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.13,
-                    recitation: 9.2,
-                    quizzes: 18.1,
-                    exam: 29.1,
-                    average: 94.3,
-                    grade: 1.6
-                },
-                final: {
-                    studentship: 9.42,
-                    activities: 28.8,
-                    recitation: 8.3,
-                    quizzes: 15.93,
-                    exam: 28.8,
-                    average: 91.25,
-                    grade: 1.9
-                },
-                finalGradeAverage: 92.78,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: 92.00,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402167",
+            name: "Dela Cruz, Jamella N.",
+            attendance: 8,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202400813",
-                name: "Mijares, Ma. Samantha V.",
-                attendance: 14,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.2,
-                    recitation: 9.1,
-                    quizzes: 19.1,
-                    exam: 29.1,
-                    average: 94.3,
-                    grade: 1.6
-                },
-                final: {
-                    studentship: 9.37,
-                    activities: 27.3,
-                    recitation: 8.2,
-                    quizzes: 16.07,
-                    exam: 29.0,
-                    average: 89.14,
-                    grade: 2.1
-                },
-                finalGradeAverage: 91.72,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402148",
-                name: "Miranda, Jhamy M.",
-                attendance: 13,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: " Did not submit the report and video for Activity 4."
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Unofficially Dropped",
+            remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+        },
+        {
+            studentNumber: "C202401258",
+            name: "Del Rosario, Alljen",
+            attendance: 16,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402546",
-                name: "Morales, Franzen",
-                attendance: 13,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.3,
-                    recitation: 9.3,
-                    quizzes: 15.5,
-                    exam: 27.0,
-                    average: 85.0,
-                    grade: 2.6
-                },
-                final: {
-                    studentship: 9.62,
-                    activities: 27.6,
-                    recitation: 7.9,
-                    quizzes: 14.8,
-                    exam: 21.9,
-                    average: 81.22,
-                    grade: 2.7
-                },
-                finalGradeAverage: 83.11,
-                finalGradeEquivalent: 2.6,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402783",
-                name: "Muñoz, Alexander K.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 28.2,
-                    recitation: 9.1,
-                    quizzes: 18.25,
-                    exam: 28.1,
-                    average: 93.15,
-                    grade: 1.7
-                },
-                final: {
-                    studentship: 9.68,
-                    activities: 26.8,
-                    recitation: 8.0,
-                    quizzes: 16.8,
-                    exam: 27.0,
-                    average: 90.02,
-                    grade: 2.0
-                },
-                finalGradeAverage: 91.58,
-                finalGradeEquivalent: 1.8,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202401689",
+            name: "Divinagracia, Roxanne D.",
+            attendance: 13,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.00,
+                recitation: 9.10,
+                quizzes: 15.45,
+                exam: 24.30,
+                average: 85.65,
+                grade: 2.40
             },
-            {
-                studentNumber: "C202403086",
-                name: "Nacis, Kimberly P.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 27.03,
-                    recitation: 9.0,
-                    quizzes: 18.0,
-                    exam: 26.3,
-                    average: 85.98,
-                    grade: 2.5
-                },
-                final: {
-                    studentship: 9.6,
-                    activities: 26.4,
-                    recitation: 8.3,
-                    quizzes: 16.9,
-                    exam: 27.0,
-                    average: 91.96,
-                    grade: 1.9
-                },
-                finalGradeAverage: 88.97,
-                finalGradeEquivalent: 2.1,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: 9.04,
+                activities: 21.00,
+                recitation: 7.00,
+                quizzes: 16.13,
+                exam: 28.00,
+                average: 86.57,
+                grade: 2.30
             },
-            {
-                studentNumber: "C202402293",
-                name: "Rilan, Kyrie Elleison P.",
-                attendance: 10,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 26.1,
-                    recitation: 9.3,
-                    quizzes: 16.55,
-                    exam: 25.8,
-                    average: 85.95,
-                    grade: 2.5
-                },
-                final: {
-                    studentship: 8.11,
-                    activities: 24.6,
-                    recitation: 8.0,
-                    quizzes: 17.4,
-                    exam: 25.5,
-                    average: 80.45,
-                    grade: 2.8
-                },
-                finalGradeAverage: 83.2,
-                finalGradeEquivalent: 2.6,
-                interpretation: "Passed",
-                remarks: ""
+            finalGradeAverage: 86.49,
+            finalGradeEquivalent: 2.40,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402112",
+            name: "Esguerra, Shayne Raven M.",
+            attendance: 8,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202401925",
-                name: "Usi, Angel Fatima M.",
-                attendance: 15,
-                midterm: {
-                    studentship: 8.8,
-                    activities: 26.43,
-                    recitation: 9.2,
-                    quizzes: 18.15,
-                    exam: 28.9,
-                    average: 91.48,
-                    grade: 1.9
-                },
-                final: {
-                    studentship: 9.42,
-                    activities: 22.8,
-                    recitation: 8.0,
-                    quizzes: 17.3,
-                    exam: 29.0,
-                    average: 84.83,
-                    grade: 2.2
-                },
-                finalGradeAverage: 88.16,
-                finalGradeEquivalent: 2.2,
-                interpretation: "Passed",
-                remarks: ""
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
             },
-            {
-                studentNumber: "C202402289",
-                name: "Villegas, Jeriene Jane G.",
-                attendance: 13,
-                midterm: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                final: {
-                    studentship: "N/A",
-                    activities: "N/A",
-                    recitation: "N/A",
-                    quizzes: "N/A",
-                    exam: "N/A",
-                    average: "N/A",
-                    grade: "N/A"
-                },
-                finalGradeAverage: "N/A",
-                finalGradeEquivalent: "N/A",
-                interpretation: "Incomplete",
-                remarks: "Did not submit the report and video for Activity 4. "
-            }
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Unofficially Dropped",
+            remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+        },
+        {
+            studentNumber: "C202401274",
+            name: "Franco, Althea Faye M.",
+            attendance: 13,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202403284",
+            name: "Frigillana, Casandrianne Jahnea A.",
+            attendance: 15,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the video for Activity 4."
+        },
+        {
+            studentNumber: "C202402178",
+            name: "Geronimo, Eric Z.",
+            attendance: 10,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202402151",
+            name: "Herrera, Abraham D.",
+            attendance: 13,
+            midterm: {
+                studentship: 8.80,
+                activities: 27.10,
+                recitation: 9.30,
+                quizzes: 17.30,
+                exam: 27.30,
+                average: 89.50,
+                grade: 2.00
+            },
+            final: {
+                studentship: 9.83,
+                activities: 25.00,
+                recitation: 7.40,
+                quizzes: 17.00,
+                exam: 26.85,
+                average: 87.04,
+                grade: 2.20
+            },
+            finalGradeAverage: 88.27,
+            finalGradeEquivalent: 2.20,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202401622",
+            name: "Ibay, Mark Leo H.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 26.50,
+                recitation: 9.30,
+                quizzes: 18.30,
+                exam: 28.75,
+                average: 89.65,
+                grade: 2.00
+            },
+            final: {
+                studentship: 9.93,
+                activities: 25.00,
+                recitation: 7.40,
+                quizzes: 17.00,
+                exam: 26.85,
+                average: 85.24,
+                grade: 2.30
+            },
+            finalGradeAverage: 87.45,
+            finalGradeEquivalent: 2.20,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402868",
+            name: "Lopez, Luzlyn Ghed",
+            attendance: 14,
+            midterm: {
+                studentship: 8.80,
+                activities: 27.97,
+                recitation: 9.30,
+                quizzes: 18.30,
+                exam: 28.20,
+                average: 92.57,
+                grade: 1.70
+            },
+            final: {
+                studentship: 9.43,
+                activities: 29.80,
+                recitation: 8.80,
+                quizzes: 15.98,
+                exam: 29.00,
+                average: 92.01,
+                grade: 1.80
+            },
+            finalGradeAverage: 92.29,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202403347",
+            name: "Magalang, Kris Joanna B.",
+            attendance: 16,
+            midterm: {
+                studentship: 8.80,
+                activities: 27.57,
+                recitation: 9.40,
+                quizzes: 18.50,
+                exam: 29.70,
+                average: 93.97,
+                grade: 1.60
+            },
+            final: {
+                studentship: 9.99,
+                activities: 29.70,
+                recitation: 8.50,
+                quizzes: 17.00,
+                exam: 29.45,
+                average: 94.39,
+                grade: 1.60
+            },
+            finalGradeAverage: 94.18,
+            finalGradeEquivalent: 1.60,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202401189",
+            name: "Maglaqui, Jerryl Jane F.",
+            attendance: 7,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Unofficially Dropped",
+            remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+        },
+        {
+            studentNumber: "C202401010",
+            name: "Marcial, Estephanie Megs S.",
+            attendance: 14,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.33,
+                recitation: 9.30,
+                quizzes: 15.80,
+                exam: 23.70,
+                average: 85.93,
+                grade: 2.40
+            },
+            final: {
+                studentship: 9.41,
+                activities: 28.60,
+                recitation: 7.60,
+                quizzes: 15.07,
+                exam: 25.20,
+                average: 85.20,
+                grade: 2.40
+            },
+            finalGradeAverage: 85.91,
+            finalGradeEquivalent: 2.40,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402196",
+            name: "Mercado, Charmine O.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.03,
+                recitation: 9.30,
+                quizzes: 18.10,
+                exam: 28.80,
+                average: 93.03,
+                grade: 1.70
+            },
+            final: {
+                studentship: 9.96,
+                activities: 28.80,
+                recitation: 8.20,
+                quizzes: 16.51,
+                exam: 27.90,
+                average: 90.32,
+                grade: 2.00
+            },
+            finalGradeAverage: 91.68,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202401199",
+            name: "Mercado, Nica G.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.13,
+                recitation: 9.30,
+                quizzes: 18.30,
+                exam: 29.10,
+                average: 93.33,
+                grade: 1.70
+            },
+            final: {
+                studentship: 9.42,
+                activities: 28.00,
+                recitation: 8.20,
+                quizzes: 15.60,
+                exam: 26.85,
+                average: 90.01,
+                grade: 2.00
+            },
+            finalGradeAverage: 91.67,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202400813",
+            name: "Mijares, Ma. Samantha V.",
+            attendance: 14,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.20,
+                recitation: 9.10,
+                quizzes: 19.10,
+                exam: 29.10,
+                average: 94.30,
+                grade: 1.60
+            },
+            final: {
+                studentship: 9.37,
+                activities: 27.30,
+                recitation: 8.20,
+                quizzes: 16.07,
+                exam: 29.00,
+                average: 91.49,
+                grade: 1.90
+            },
+            finalGradeAverage: 92.90,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402148",
+            name: "Miranda, Jhamy M.",
+            attendance: 13,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        },
+        {
+            studentNumber: "C202402546",
+            name: "Morales, Franzen ..",
+            attendance: 13,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.30,
+                recitation: 9.30,
+                quizzes: 15.50,
+                exam: 27.00,
+                average: 85.00,
+                grade: 2.60
+            },
+            final: {
+                studentship: 9.62,
+                activities: 27.60,
+                recitation: 7.90,
+                quizzes: 14.80,
+                exam: 21.90,
+                average: 81.22,
+                grade: 2.70
+            },
+            finalGradeAverage: 83.11,
+            finalGradeEquivalent: 2.60,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402783",
+            name: "Muñoz, Alexander K.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 28.20,
+                recitation: 9.10,
+                quizzes: 18.25,
+                exam: 28.10,
+                average: 93.15,
+                grade: 1.70
+            },
+            final: {
+                studentship: 9.68,
+                activities: 26.80,
+                recitation: 8.00,
+                quizzes: 16.80,
+                exam: 27.00,
+                average: 90.54,
+                grade: 1.90
+            },
+            finalGradeAverage: 91.85,
+            finalGradeEquivalent: 1.80,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202403086",
+            name: "Nacis, Kimberly P.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 27.03,
+                recitation: 9.00,
+                quizzes: 18.00,
+                exam: 26.30,
+                average: 85.98,
+                grade: 2.40
+            },
+            final: {
+                studentship: 9.60,
+                activities: 26.40,
+                recitation: 8.20,
+                quizzes: 16.90,
+                exam: 27.00,
+                average: 91.04,
+                grade: 1.90
+            },
+            finalGradeAverage: 88.51,
+            finalGradeEquivalent: 2.20,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402293",
+            name: "Rilan, Kyrie Elleison P.",
+            attendance: 10,
+            midterm: {
+                studentship: 8.80,
+                activities: 26.10,
+                recitation: 9.30,
+                quizzes: 16.55,
+                exam: 25.80,
+                average: 85.95,
+                grade: 2.40
+            },
+            final: {
+                studentship: 8.11,
+                activities: 24.60,
+                recitation: 8.00,
+                quizzes: 17.40,
+                exam: 25.50,
+                average: 80.45,
+                grade: 2.80
+            },
+            finalGradeAverage: 83.20,
+            finalGradeEquivalent: 2.60,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202401925",
+            name: "Usi, Angel Fatima M.",
+            attendance: 15,
+            midterm: {
+                studentship: 8.80,
+                activities: 26.43,
+                recitation: 9.20,
+                quizzes: 18.15,
+                exam: 28.90,
+                average: 91.48,
+                grade: 1.90
+            },
+            final: {
+                studentship: 9.42,
+                activities: 22.80,
+                recitation: 8.00,
+                quizzes: 17.30,
+                exam: 29.00,
+                average: 84.83,
+                grade: 2.20
+            },
+            finalGradeAverage: 88.16,
+            finalGradeEquivalent: 2.20,
+            interpretation: "Passed",
+            remarks: ""
+        },
+        {
+            studentNumber: "C202402289",
+            name: "Villegas, Jeriene Jane G.",
+            attendance: 13,
+            midterm: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            final: {
+                studentship: "N/A",
+                activities: "N/A",
+                recitation: "N/A",
+                quizzes: "N/A",
+                exam: "N/A",
+                average: "N/A",
+                grade: "N/A"
+            },
+            finalGradeAverage: "N/A",
+            finalGradeEquivalent: "N/A",
+            interpretation: "Incomplete",
+            remarks: "Did not submit the report and video for Activity 4."
+        }
         ];
         
         // DOM elements
