@@ -211,44 +211,42 @@
         </div>
     </div>
     
-  <!-- Grade Calculation Modal -->
-<div id="grade-calculation-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold text-gray-800">Grade Calculation</h3>
-            <button class="close-modal text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <div class="prose">
-            <p class="text-gray-700"><strong>Final Grade Calculation Formula</strong></p>
-            <p class="text-gray-700 mt-3">The final grade is calculated as follows:</p>
-            <div class="bg-gray-50 p-4 rounded-lg my-3">
-                <p class="font-medium text-center">Final Grade = 50% of Midterm Grade + 50% of Final Term Grade</p>
+    <!-- Grade Calculation Modal -->
+    <div id="grade-calculation-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">Grade Calculation</h3>
+                <button class="close-modal text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
-
-            <p class="text-gray-700 mt-3"><strong>Component Weights:</strong></p>
-            <ul class="text-gray-700 list-disc pl-5">
-                <li>Studentship: 10%</li>
-                <li>Activities: 30%</li>
-                <li>Recitation: 10%</li>
-                <li>Quizzes: 20%</li>
-                <li>Major Examination: 30%</li>
-            </ul>
-
-            <p class="text-gray-700 mt-3">These weights apply to both midterm and final term grades.</p>
+            <div class="prose">
+                <p class="text-gray-700"><strong>Final Grade Calculation Formula</strong></p>
+                <p class="text-gray-700 mt-3">The final grade is calculated as follows:</p>
+                <div class="bg-gray-50 p-4 rounded-lg my-3">
+                    <p class="font-medium text-center">Final Grade = 50% of Midterm Grade + 50% of Final Term Grade</p>
+                </div>
+                
+                <p class="text-gray-700 mt-3"><strong>Component Weights:</strong></p>
+                <ul class="text-gray-700 list-disc pl-5">
+                    <li>Studentship: 10%</li>
+                    <li>Activities: 30%</li>
+                    <li>Recitation: 10%</li>
+                    <li>Quizzes: 20%</li>
+                    <li>Major Examination: 30%</li>
+                </ul>
+                
+                <p class="text-gray-700 mt-3">These weights apply to both midterm and final term grades.</p>
+            </div>
         </div>
     </div>
-</div>
-
     
     <script>
         // Student data from the provided CSV
         const students = [
-           {
-    studentNumber: "C202402857",
+            studentNumber: "C202402857",
     name: "Abalos, Sean Adrielee S.",
     attendance: 8,
     midterm: {
@@ -381,8 +379,7 @@
     finalGradeEquivalent: "N/A",
     interpretation: "Incomplete",
     remarks: "Did not submit the report for Activity 4."
-}
-
+},
 {
     studentNumber: "C202402858",
     name: "Bustos, Bryan James M.",
