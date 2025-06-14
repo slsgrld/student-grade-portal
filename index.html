@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            min-height: 100vh;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4), 0 2px 4px -1px rgba(59, 130, 246, 0.06);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .input-focus-effect {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-focus-effect:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .grade-pill {
+            border-radius: 9999px;
+            padding: 0.25rem 1rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .breakdown-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .breakdown-btn:hover {
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .grade-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .attendance-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .attendance-ring-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        
+        .attendance-ring-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .highlight-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .grade-scale-row:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .final-grade-container {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .breakdown-modal {
+            max-width: 320px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .grading-scale-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Custom scrollbar */
+        .grading-scale-container::-webkit-scrollbar,
+        .policy-content-container::-webkit-scrollbar,
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .grading-scale-container::-webkit-scrollbar-track,
+        .policy-content-container::-webkit-scrollbar-track,
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        .grading-scale-container::-webkit-scrollbar-thumb,
+        .policy-content-container::-webkit-scrollbar-thumb,
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        
+        .interpretation-badge {
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-top: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .attendance-percentage {
+            font-size: 1.75rem;
+            font-weight: 700;
+            dominant-baseline: middle;
+            text-anchor: middle;
+        }
+        
+        .attendance-label {
+            font-size: 0.75rem;
+            fill: #6b7280;
+            dominant-baseline: middle;
+            text-anchor: middle;
+        }
+        
+        .attendance-count {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #4b5563;
+        }
+        
+        .attendance-circle-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 8;
+        }
+        
+        .attendance-circle-progress {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.5s ease;
+        }
+        
+        .combined-grade-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .combined-grade-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .grade-section {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .grade-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.3), transparent);
+            margin: 0 1rem;
+        }
+        
+        .grade-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .grade-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-align: center;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .grade-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-align: center;
+        }
+        
+        .grade-action {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .grade-action-btn {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .grade-action-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .remarks-container {
+            background: linear-gradient(135deg, #fff 0%, #f9fafb 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .remarks-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #0ea5e9);
+        }
+        
+        .remarks-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .remarks-content {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        .student-info-header {
+            position: relative;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .student-info-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+        }
+        
+        .grade-average {
+            font-size: 1.125rem; /* Increased from 0.875rem */
+            font-weight: 600; /* Increased from 500 */
+            color: white;
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 0.35rem 0.85rem; /* Slightly increased padding */
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .policy-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .policy-table th {
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        
+        .policy-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .policy-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .policy-table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        .policy-table tr:hover {
+            background-color: #f0f9ff;
+        }
+        
+        .policy-content-container {
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <div class="gradient-bg text-white py-6 px-4 rounded-2xl mb-8 shadow-lg">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">Student Grade Portal</h1>
+                <p class="text-lg opacity-90">View your grades, attendance, and academic status</p>
+            </div>
+            
+            <div id="search-container" class="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-lg">
+                <div class="mb-4">
+                    <label for="studentNumber" class="block text-sm font-medium text-gray-700 mb-1 text-left">Enter your Student Number (case sensitive)</label>
+                    <div>
+                        <input type="text" id="studentNumber" placeholder="C202401009" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none input-focus-effect">
+                    </div>
+                    <p id="error-message" class="text-red-500 text-sm mt-1 text-left hidden">Student not found. Please check your Student Number.</p>
+                </div>
+                <button id="search-btn" class="btn-primary text-white px-6 py-3 rounded-lg font-medium w-full">Search</button>
+            </div>
+        </header>
+
+        <!-- Results Section (Initially Hidden) -->
+        <div id="results-container" class="hidden">
+            <!-- Student Information -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 card">
+                <div class="text-center mb-6 student-info-header">
+                    <h2 id="student-name" class="text-4xl font-bold text-gray-800 mb-3"></h2>
+                    <div id="student-number-display" class="text-gray-500 mb-2 text-lg"></div>
+                    <div>
+                        <span id="status-badge" class="interpretation-badge"></span>
+                    </div>
+                </div>
+                
+                <!-- Combined Final Grade and Equivalent Card -->
+                <div class="combined-grade-card mb-8">
+                    <div class="flex flex-col md:flex-row items-center justify-center">
+                        <div class="grade-section flex-1 text-center mb-6 md:mb-0">
+                            <div class="grade-title">Final Grade</div>
+                            <div id="final-average" class="grade-number"></div>
+                            <div class="grade-subtitle">Average</div>
+                            <div class="grade-action">
+                                <button id="view-computation-btn" class="grade-action-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                    Grade Computation
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="grade-divider hidden md:block h-24"></div>
+                        
+                        <div class="grade-section flex-1 text-center">
+                            <div class="grade-title">Equivalent</div>
+                            <div id="grade-equivalent" class="grade-number"></div>
+                            <div class="grade-subtitle">Grade</div>
+                            <div class="grade-action">
+                                <button id="view-grading-scale-btn" class="grade-action-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                    Grading Scale
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Grade Cards and Attendance Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <!-- Midterm Grade -->
+                    <div class="grade-card bg-gradient-to-br from-blue-500 to-cyan-600 p-5 text-white">
+                        <h3 class="text-lg font-semibold mb-1 opacity-90">Midterm Grade</h3>
+                        <div id="midterm-grade" class="text-4xl font-bold"></div>
+                        <div id="midterm-average-display" class="grade-average"></div>
+                        <button id="view-midterm-btn" class="breakdown-btn text-blue-700 hover:text-blue-900">View Breakdown</button>
+                    </div>
+                    
+                    <!-- Final Term Grade -->
+                    <div class="grade-card bg-gradient-to-br from-cyan-500 to-teal-600 p-5 text-white">
+                        <h3 class="text-lg font-semibold mb-1 opacity-90">Final Term Grade</h3>
+                        <div id="final-grade" class="text-4xl font-bold"></div>
+                        <div id="final-average-display" class="grade-average"></div>
+                        <button id="view-final-btn" class="breakdown-btn text-teal-700 hover:text-teal-900">View Breakdown</button>
+                    </div>
+                    
+                    <!-- Attendance Card -->
+                    <div class="attendance-card">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3 text-center">Attendance</h4>
+                        
+                        <!-- Redesigned circular graph -->
+                        <div class="attendance-ring-container">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <!-- Background circle -->
+                                <circle class="attendance-circle-bg" cx="50" cy="50" r="40"></circle>
+                                
+                                <!-- Progress circle -->
+                                <circle id="attendance-circle" class="attendance-circle-progress" cx="50" cy="50" r="40" 
+                                        stroke-dasharray="0 251.2" transform="rotate(-90 50 50)"></circle>
+                                
+                                <!-- Percentage text -->
+                                <text id="attendance-percentage" class="attendance-percentage" x="50" y="50"></text>
+                                
+                                <!-- Label text -->
+                                <text class="attendance-label" x="50" y="68">present</text>
+                            </svg>
+                        </div>
+                        
+                        <!-- Attendance count -->
+                        <div id="attendance-count" class="attendance-count"></div>
+                        
+                        <div class="grade-action mt-3">
+                            <button id="view-attendance-policy-btn" class="grade-action-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Attendance Policy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Remarks Container -->
+                <div id="remarks-container" class="remarks-container">
+                    <h4 class="remarks-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Instructor's Remarks
+                    </h4>
+                    <p id="remarks" class="remarks-content"></p>
+                </div>
+            </div>
+            
+            <div class="text-center mb-8">
+                <button id="search-another-btn" class="btn-primary text-white px-6 py-3 rounded-lg font-medium">Search Another Student</button>
+            </div>
+            
+            <div class="bg-white rounded-lg p-5 text-sm text-gray-600 text-center shadow">
+                For transparency, the detailed scores of your activities, assignments, and other class submissions are available on our official learning platform, Gnomio. Please log in to view your full performance record.
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-gray-600 text-sm">
+            <p class="mb-1">Developed by Dr. Gerald M. Salas</p>
+            <p class="mb-1">For inquiries: gerald_salas@psau.edu.ph</p>
+            <p>© 2025 Pampanga State Agricultural University</p>
+        </footer>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Midterm Breakdown Modal -->
+    <div id="midterm-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content breakdown-modal bg-white w-full overflow-hidden">
+            <div class="modal-header">
+                <h3 class="text-lg font-bold">Midterm Breakdown</h3>
+                <button class="close-modal text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-2">
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Studentship (10%)</span>
+                        <span id="midterm-studentship" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Activities (30%)</span>
+                        <span id="midterm-activities" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Recitation (10%)</span>
+                        <span id="midterm-recitation" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Quizzes (20%)</span>
+                        <span id="midterm-quizzes" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Exam (30%)</span>
+                        <span id="midterm-exam" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 font-semibold bg-blue-50 rounded-lg px-2">
+                        <span class="text-blue-800">Average</span>
+                        <span id="midterm-average" class="text-blue-700"></span>
+                    </div>
+                    <div class="flex justify-between py-2 font-semibold bg-blue-100 rounded-lg px-2">
+                        <span class="text-blue-800">Grade</span>
+                        <span id="midterm-grade-value" class="text-blue-700"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Final Breakdown Modal -->
+    <div id="final-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content breakdown-modal bg-white w-full overflow-hidden">
+            <div class="modal-header">
+                <h3 class="text-lg font-bold">Final Term Breakdown</h3>
+                <button class="close-modal text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-2">
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Studentship (10%)</span>
+                        <span id="final-studentship" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Activities (30%)</span>
+                        <span id="final-activities" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Recitation (10%)</span>
+                        <span id="final-recitation" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Quizzes (20%)</span>
+                        <span id="final-quizzes" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b">
+                        <span class="text-gray-600">Exam (30%)</span>
+                        <span id="final-exam" class="font-medium"></span>
+                    </div>
+                    <div class="flex justify-between py-2 font-semibold bg-teal-50 rounded-lg px-2">
+                        <span class="text-teal-800">Average</span>
+                        <span id="final-average-value" class="text-teal-700"></span>
+                    </div>
+                    <div class="flex justify-between py-2 font-semibold bg-teal-100 rounded-lg px-2">
+                        <span class="text-teal-800">Grade</span>
+                        <span id="final-grade-value" class="text-teal-700"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Grade Computation Modal -->
+    <div id="computation-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content bg-white rounded-xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="modal-header">
+                <h3 class="text-xl font-bold">Grade Computation</h3>
+                <button class="close-modal text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-blue-500 to-cyan-600 text-white p-4 rounded-lg">
+                        <h4 class="font-medium mb-2">Grade Components and Weights</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-white border-opacity-20">
+                                    <th class="text-left py-1">Component</th>
+                                    <th class="text-right py-1">Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-1">Studentship</td>
+                                    <td class="text-right">10%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Activities</td>
+                                    <td class="text-right">30%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Recitation</td>
+                                    <td class="text-right">10%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Quizzes</td>
+                                    <td class="text-right">20%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">Exam</td>
+                                    <td class="text-right">30%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-medium text-gray-800 mb-2">Computation Process</h4>
+                        <ol class="list-decimal pl-5 space-y-2 text-gray-700 text-sm">
+                            <li>Each component is scored out of its maximum possible points.</li>
+                            <li>A weighted average is calculated for both Midterm and Final periods using the weights above.</li>
+                        </ol>
+                        
+                        <div class="mt-4 pt-3 border-t border-gray-200">
+                            <h5 class="font-medium text-gray-800 mb-2">The Final Grade Average is computed as:</h5>
+                            <div class="bg-blue-50 p-3 rounded-lg text-center font-medium text-blue-800">
+                                Final Grade Average = (Midterm Grade × 50%) + (Final Grade × 50%)
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-sm text-gray-700">
+                            The Final Grade Equivalent is determined using the official University Grading Scale.
+                        </div>
+                    </div>
+                </div>
+                <button class="close-modal btn-primary text-white px-6 py-2 rounded-lg font-medium w-full mt-6">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Grading Scale Modal -->
+    <div id="grading-scale-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content bg-white rounded-xl max-w-2xl w-full mx-4 overflow-hidden">
+            <div class="modal-header">
+                <h3 class="text-xl font-bold">University Grading Scale</h3>
+                <button class="close-modal text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="grading-scale-container">
+                    <table class="min-w-full bg-white text-sm">
+                        <thead class="sticky top-0 z-10">
+                            <tr class="bg-gradient-to-r from-blue-500 to-cyan-600 text-white">
+                                <th class="py-2 px-3 text-left">Average</th>
+                                <th class="py-2 px-3 text-left">Equivalent</th>
+                                <th class="py-2 px-3 text-left">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">100</td>
+                                <td class="py-1 px-3 border-b">1.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">99</td>
+                                <td class="py-1 px-3 border-b">1.10</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">98</td>
+                                <td class="py-1 px-3 border-b">1.20</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">97</td>
+                                <td class="py-1 px-3 border-b">1.30</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">96</td>
+                                <td class="py-1 px-3 border-b">1.40</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">95</td>
+                                <td class="py-1 px-3 border-b">1.50</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">94</td>
+                                <td class="py-1 px-3 border-b">1.60</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">93</td>
+                                <td class="py-1 px-3 border-b">1.70</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">92</td>
+                                <td class="py-1 px-3 border-b">1.80</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">91</td>
+                                <td class="py-1 px-3 border-b">1.90</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">90</td>
+                                <td class="py-1 px-3 border-b">2.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">89</td>
+                                <td class="py-1 px-3 border-b">2.10</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">88</td>
+                                <td class="py-1 px-3 border-b">2.20</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">87</td>
+                                <td class="py-1 px-3 border-b">2.30</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">86</td>
+                                <td class="py-1 px-3 border-b">2.40</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">85</td>
+                                <td class="py-1 px-3 border-b">2.50</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">84</td>
+                                <td class="py-1 px-3 border-b">2.60</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">83</td>
+                                <td class="py-1 px-3 border-b">2.60</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">82</td>
+                                <td class="py-1 px-3 border-b">2.70</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">81</td>
+                                <td class="py-1 px-3 border-b">2.70</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">80</td>
+                                <td class="py-1 px-3 border-b">2.80</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">79</td>
+                                <td class="py-1 px-3 border-b">2.80</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">78</td>
+                                <td class="py-1 px-3 border-b">2.90</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">77</td>
+                                <td class="py-1 px-3 border-b">2.90</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">76</td>
+                                <td class="py-1 px-3 border-b">3.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">75</td>
+                                <td class="py-1 px-3 border-b">3.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-green-100 text-green-800">Passed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">74</td>
+                                <td class="py-1 px-3 border-b">4.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-yellow-100 text-yellow-800">Conditional</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">73</td>
+                                <td class="py-1 px-3 border-b">4.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-yellow-100 text-yellow-800">Conditional</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">72</td>
+                                <td class="py-1 px-3 border-b">5.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-red-100 text-red-800">Failed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">71</td>
+                                <td class="py-1 px-3 border-b">5.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-red-100 text-red-800">Failed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">70</td>
+                                <td class="py-1 px-3 border-b">5.00</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-red-100 text-red-800">Failed</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">-</td>
+                                <td class="py-1 px-3 border-b">INC</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-yellow-100 text-yellow-800">Incomplete</span></td>
+                            </tr>
+                            <tr class="grade-scale-row">
+                                <td class="py-1 px-3 border-b">-</td>
+                                <td class="py-1 px-3 border-b">UD</td>
+                                <td class="py-1 px-3 border-b"><span class="grade-pill bg-red-100 text-red-800">Unofficially Dropped</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="close-modal btn-primary text-white px-6 py-2 rounded-lg font-medium w-full mt-6">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Attendance Policy Modal -->
+    <div id="attendance-policy-modal" class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content bg-white rounded-xl max-w-2xl w-full mx-4 overflow-hidden">
+            <div class="modal-header">
+                <h3 class="text-xl font-bold">Attendance Policy</h3>
+                <button class="close-modal text-white hover:text-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="policy-content-container">
+                    <div class="space-y-5">
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                            <h4 class="font-medium text-yellow-800 mb-2">Official University Policy</h4>
+                            <p class="text-yellow-700">Per BOR-approved handbook section 3.8.1.7: When a student's absences in a subject during one semester reach 20% of the required number of hours for recitation, lecture, laboratory, or scheduled work, and the absences are unexcused, the student shall be unofficially dropped from the class and given a grade of 5.0.</p>
+                        </div>
+                        
+                        <table class="policy-table w-full">
+                            <thead>
+                                <tr>
+                                    <th>Attendance Status</th>
+                                    <th>Hours</th>
+                                    <th>Sessions</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Full Attendance</td>
+                                    <td>24 hours</td>
+                                    <td>16 sessions</td>
+                                    <td><span class="grade-pill bg-green-100 text-green-800">Excellent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>20% Absences</td>
+                                    <td>4.8 hours</td>
+                                    <td>3 absences</td>
+                                    <td><span class="grade-pill bg-yellow-100 text-yellow-800">Warning</span></td>
+                                </tr>
+                                <tr>
+                                    <td>50% Absences</td>
+                                    <td>12 hours</td>
+                                    <td>8 absences</td>
+                                    <td><span class="grade-pill bg-red-100 text-red-800">Dropped</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                            <h4 class="font-medium text-blue-800 mb-2">Implementation Notes</h4>
+                            <ul class="space-y-2 text-blue-700">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>A more lenient threshold of 50% was applied to ensure fairness.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Only documented attendance using signed sheets was accepted.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Attendance in online classes (synchronous and asynchronous) was not included.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>This leniency does not override university policy but is used for academic consideration in this course only.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2">Attendance Grading Impact</h4>
+                            <p class="text-gray-700 mb-3">Attendance contributes to the Studentship component (10% of the total grade) as follows:</p>
+                            <table class="w-full border-collapse">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left border">Attendance Rate</th>
+                                        <th class="py-2 px-3 text-left border">Studentship Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-1 px-3 border">90-100%</td>
+                                        <td class="py-1 px-3 border">95-100</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-1 px-3 border">80-89%</td>
+                                        <td class="py-1 px-3 border">85-94</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-1 px-3 border">70-79%</td>
+                                        <td class="py-1 px-3 border">75-84</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-1 px-3 border">60-69%</td>
+                                        <td class="py-1 px-3 border">65-74</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-1 px-3 border">50-59%</td>
+                                        <td class="py-1 px-3 border">50-64</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-1 px-3 border">Below 50%</td>
+                                        <td class="py-1 px-3 border">Unofficially Dropped</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                            <h4 class="font-medium text-red-800 mb-2">Consequences of Poor Attendance</h4>
+                            <ul class="space-y-2 text-red-700">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <span>Students with attendance below 50% will be marked as "Unofficially Dropped" regardless of performance in other components.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <span>Unofficially dropped students must retake the entire course in a future semester.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <span>No make-up work can compensate for excessive absences.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="close-modal btn-primary text-white px-6 py-2 rounded-lg font-medium w-full mt-6">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Student Data
+        const students = [
+            {
+    studentNumber: "C202402857",
+    name: "Abalos, Sean Adrielee S.",
+    attendance: 8,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Unofficially Dropped",
+    remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+},
+{
+    studentNumber: "C202401009",
+    name: "Adriano, Precious Iya C.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.23,
+        recitation: 9.1,
+        quizzes: 17.0,
+        exam: 27.0,
+        average: 90.13,
+        grade: "2.00"
+    },
+    final: {
+        studentship: 9.68,
+        activities: 28.6,
+        recitation: 8.2,
+        quizzes: 16.42,
+        exam: 25.2,
+        average: 88.1,
+        grade: "2.20"
+    },
+    finalGradeAverage: 89.12,
+    finalGradeEquivalent: "2.10",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402875",
+    name: "Apostol, Roy S.",
+    attendance: 13,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202406811",
+    name: "Batas, Anthony A.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.07,
+        recitation: 9.3,
+        quizzes: 16.35,
+        exam: 24.4,
+        average: 87.13,
+        grade: "2.30"
+    },
+    final: {
+        studentship: 8.72,
+        activities: 21.0,
+        recitation: 7.3,
+        quizzes: 17.6,
+        exam: 29.0,
+        average: 84.0,
+        grade: "2.50"
+    },
+    finalGradeAverage: 85.57,
+    finalGradeEquivalent: "2.40",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202401804",
+    name: "Buhay, Adrian Zandler",
+    attendance: 16,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report for Activity 4."
+},
+{
+    studentNumber: "C202402858",
+    name: "Bustos, Bryan James M.",
+    attendance: 13,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202402778",
+    name: "Cabigting, Cler Joco S.",
+    attendance: 11,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report for Activity 4."
+},
+{
+    studentNumber: "C202403026",
+    name: "Castro, Alyssa Jionna G.",
+    attendance: 16,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.3,
+        recitation: 9.2,
+        quizzes: 16.8,
+        exam: 28.0,
+        average: 90.1,
+        grade: "2.00"
+    },
+    final: {
+        studentship: 9.94,
+        activities: 23.6,
+        recitation: 7.9,
+        quizzes: 17.3,
+        exam: 28.65,
+        average: 89.73,
+        grade: "2.00"
+    },
+    finalGradeAverage: 89.91,
+    finalGradeEquivalent: "2.00",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202403206",
+    name: "Celestino, Justine Gabriel M.",
+    attendance: 15,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202402164",
+    name: "Clemente, Hasley D.",
+    attendance: 16,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.3,
+        recitation: 9.1,
+        quizzes: 17.6,
+        exam: 28.5,
+        average: 92.3,
+        grade: "1.80"
+    },
+    final: {
+        studentship: 9.92,
+        activities: 23.3,
+        recitation: 8.0,
+        quizzes: 18.0,
+        exam: 29.1,
+        average: 92.28,
+        grade: "1.80"
+    },
+    finalGradeAverage: 92.29,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402376",
+    name: "Cosio, Angelica J.",
+    attendance: 15,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202402378",
+    name: "Daludgug, Jules Andrei M.",
+    attendance: 7,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Unofficially Dropped",
+    remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+},
+{
+    studentNumber: "C202401070",
+    name: "David, Thea Destiny M.",
+    attendance: 16,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.0,
+        recitation: 9.2,
+        quizzes: 18.3,
+        exam: 28.5,
+        average: 92.01,
+        grade: "1.80"
+    },
+    final: {
+        studentship: 9.43,
+        activities: 23.3,
+        recitation: 8.3,
+        quizzes: 18.0,
+        exam: 28.4,
+        average: 91.98,
+        grade: "1.80"
+    },
+    finalGradeAverage: 92.0,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402167",
+    name: "Dela Cruz, Jamella N.",
+    attendance: 8,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Unofficially Dropped",
+    remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+},
+{
+    studentNumber: "C202401258",
+    name: "Del Rosario, Alljen",
+    attendance: 16,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202401689",
+    name: "Divinagracia, Roxanne D.",
+    attendance: 13,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.0,
+        recitation: 9.1,
+        quizzes: 15.45,
+        exam: 24.3,
+        average: 85.65,
+        grade: "2.40"
+    },
+    final: {
+        studentship: 9.04,
+        activities: 21.0,
+        recitation: 7.0,
+        quizzes: 16.13,
+        exam: 28.0,
+        average: 86.57,
+        grade: "2.30"
+    },
+    finalGradeAverage: 86.49,
+    finalGradeEquivalent: "2.40",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402112",
+    name: "Esguerra, Shayne Raven M.",
+    attendance: 8,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Unofficially Dropped",
+    remarks: "Did not submit the video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (8 out of 16)."
+},
+{
+    studentNumber: "C202401274",
+    name: "Franco, Althea Faye M.",
+    attendance: 13,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202403284",
+    name: "Frigillana, Casandrianne Jahnea A.",
+    attendance: 15,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the video for Activity 4."
+},
+{
+    studentNumber: "C202402178",
+    name: "Geronimo, Eric Z.",
+    attendance: 10,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202402151",
+    name: "Herrera, Abraham D.",
+    attendance: 13,
+    midterm: {
+        studentship: 8.8,
+        activities: 27.1,
+        recitation: 9.3,
+        quizzes: 17.3,
+        exam: 27.3,
+        average: 89.5,
+        grade: "2.00"
+    },
+    final: {
+        studentship: 9.83,
+        activities: 25.0,
+        recitation: 7.4,
+        quizzes: 17.0,
+        exam: 26.85,
+        average: 87.04,
+        grade: "2.20"
+    },
+    finalGradeAverage: 88.27,
+    finalGradeEquivalent: "2.20",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202401622",
+    name: "Ibay, Mark Leo H.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 26.5,
+        recitation: 9.3,
+        quizzes: 18.3,
+        exam: 28.75,
+        average: 89.65,
+        grade: "2.00"
+    },
+    final: {
+        studentship: 9.93,
+        activities: 25.0,
+        recitation: 7.4,
+        quizzes: 17.0,
+        exam: 26.85,
+        average: 85.24,
+        grade: "2.30"
+    },
+    finalGradeAverage: 87.45,
+    finalGradeEquivalent: "2.20",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402868",
+    name: "Lopez, Luzlyn Ghed",
+    attendance: 14,
+    midterm: {
+        studentship: 8.8,
+        activities: 27.97,
+        recitation: 9.3,
+        quizzes: 18.3,
+        exam: 28.2,
+        average: 92.57,
+        grade: "1.70"
+    },
+    final: {
+        studentship: 9.43,
+        activities: 29.8,
+        recitation: 8.8,
+        quizzes: 15.98,
+        exam: 29.0,
+        average: 92.01,
+        grade: "1.80"
+    },
+    finalGradeAverage: 92.29,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202403347",
+    name: "Magalang, Kris Joanna B.",
+    attendance: 16,
+    midterm: {
+        studentship: 8.8,
+        activities: 27.57,
+        recitation: 9.4,
+        quizzes: 18.5,
+        exam: 29.7,
+        average: 93.97,
+        grade: "1.60"
+    },
+    final: {
+        studentship: 9.99,
+        activities: 29.7,
+        recitation: 8.5,
+        quizzes: 17.0,
+        exam: 29.45,
+        average: 94.39,
+        grade: "1.60"
+    },
+    finalGradeAverage: 94.18,
+    finalGradeEquivalent: "1.60",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202401189",
+    name: "Maglaqui, Jerryl Jane F.",
+    attendance: 7,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Unofficially Dropped",
+    remarks: "Did not submit the report and video for Activity 4. Number of absences met or exceeded the allowed limit of 8 sessions (9 out of 16)."
+},
+{
+    studentNumber: "C202401010",
+    name: "Marcial, Estephanie Megs S.",
+    attendance: 14,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.33,
+        recitation: 9.3,
+        quizzes: 15.8,
+        exam: 23.7,
+        average: 85.93,
+        grade: "2.40"
+    },
+    final: {
+        studentship: 9.41,
+        activities: 28.6,
+        recitation: 7.6,
+        quizzes: 15.07,
+        exam: 25.2,
+        average: 85.2,
+        grade: "2.40"
+    },
+    finalGradeAverage: 85.91,
+    finalGradeEquivalent: "2.40",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402196",
+    name: "Mercado, Charmine O.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.03,
+        recitation: 9.3,
+        quizzes: 18.1,
+        exam: 28.8,
+        average: 93.03,
+        grade: "1.70"
+    },
+    final: {
+        studentship: 9.96,
+        activities: 28.8,
+        recitation: 8.2,
+        quizzes: 16.51,
+        exam: 27.9,
+        average: 90.32,
+        grade: "2.00"
+    },
+    finalGradeAverage: 91.68,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202401199",
+    name: "Mercado, Nica G.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.13,
+        recitation: 9.3,
+        quizzes: 18.3,
+        exam: 29.1,
+        average: 93.33,
+        grade: "1.70"
+    },
+    final: {
+        studentship: 9.42,
+        activities: 28.0,
+        recitation: 8.2,
+        quizzes: 15.6,
+        exam: 26.85,
+        average: 90.01,
+        grade: "2.00"
+    },
+    finalGradeAverage: 91.67,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202400813",
+    name: "Mijares, Ma. Samantha V.",
+    attendance: 14,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.2,
+        recitation: 9.1,
+        quizzes: 19.1,
+        exam: 29.1,
+        average: 94.3,
+        grade: "1.60"
+    },
+    final: {
+        studentship: 9.37,
+        activities: 27.3,
+        recitation: 8.2,
+        quizzes: 16.07,
+        exam: 29.0,
+        average: 91.49,
+        grade: "1.90"
+    },
+    finalGradeAverage: 92.9,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402148",
+    name: "Miranda, Jhamy M.",
+    attendance: 13,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+},
+{
+    studentNumber: "C202402546",
+    name: "Morales, Franzen ..",
+    attendance: 13,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.3,
+        recitation: 9.3,
+        quizzes: 15.5,
+        exam: 27.0,
+        average: 85.0,
+        grade: "2.60"
+    },
+    final: {
+        studentship: 9.62,
+        activities: 27.6,
+        recitation: 7.9,
+        quizzes: 14.8,
+        exam: 21.9,
+        average: 81.22,
+        grade: "2.70"
+    },
+    finalGradeAverage: 83.11,
+    finalGradeEquivalent: "2.60",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402783",
+    name: "Muñoz, Alexander K.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 28.2,
+        recitation: 9.1,
+        quizzes: 18.25,
+        exam: 28.1,
+        average: 93.15,
+        grade: "1.70"
+    },
+    final: {
+        studentship: 9.68,
+        activities: 26.8,
+        recitation: 8.0,
+        quizzes: 16.8,
+        exam: 27.0,
+        average: 90.54,
+        grade: "1.90"
+    },
+    finalGradeAverage: 91.85,
+    finalGradeEquivalent: "1.80",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202403086",
+    name: "Nacis, Kimberly P.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 27.03,
+        recitation: 9.0,
+        quizzes: 18.0,
+        exam: 26.3,
+        average: 85.98,
+        grade: "2.40"
+    },
+    final: {
+        studentship: 9.6,
+        activities: 26.4,
+        recitation: 8.2,
+        quizzes: 16.9,
+        exam: 27.0,
+        average: 91.04,
+        grade: "1.90"
+    },
+    finalGradeAverage: 88.51,
+    finalGradeEquivalent: "2.20",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402293",
+    name: "Rilan, Kyrie Elleison P.",
+    attendance: 10,
+    midterm: {
+        studentship: 8.8,
+        activities: 26.1,
+        recitation: 9.3,
+        quizzes: 16.55,
+        exam: 25.8,
+        average: 85.95,
+        grade: "2.40"
+    },
+    final: {
+        studentship: 8.11,
+        activities: 24.6,
+        recitation: 8.0,
+        quizzes: 17.4,
+        exam: 25.5,
+        average: 80.45,
+        grade: "2.80"
+    },
+    finalGradeAverage: 83.2,
+    finalGradeEquivalent: "2.60",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202401925",
+    name: "Usi, Angel Fatima M.",
+    attendance: 15,
+    midterm: {
+        studentship: 8.8,
+        activities: 26.43,
+        recitation: 9.2,
+        quizzes: 18.15,
+        exam: 28.9,
+        average: 91.48,
+        grade: "1.90"
+    },
+    final: {
+        studentship: 9.42,
+        activities: 22.8,
+        recitation: 8.0,
+        quizzes: 17.3,
+        exam: 29.0,
+        average: 84.83,
+        grade: "2.20"
+    },
+    finalGradeAverage: 88.16,
+    finalGradeEquivalent: "2.20",
+    interpretation: "Passed",
+    remarks: ""
+},
+{
+    studentNumber: "C202402289",
+    name: "Villegas, Jeriene Jane G.",
+    attendance: 13,
+    midterm: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    final: {
+        studentship: null,
+        activities: null,
+        recitation: null,
+        quizzes: null,
+        exam: null,
+        average: null,
+        grade: "N/A"
+    },
+    finalGradeAverage: null,
+    finalGradeEquivalent: "N/A",
+    interpretation: "Incomplete",
+    remarks: "Did not submit the report and video for Activity 4."
+}
+        ];
+
+        // DOM Elements
+        const searchBtn = document.getElementById('search-btn');
+        const studentNumberInput = document.getElementById('studentNumber');
+        const errorMessage = document.getElementById('error-message');
+        const searchContainer = document.getElementById('search-container');
+        const resultsContainer = document.getElementById('results-container');
+        const searchAnotherBtn = document.getElementById('search-another-btn');
+        
+        // Modal buttons
+        const viewMidtermBtn = document.getElementById('view-midterm-btn');
+        const viewFinalBtn = document.getElementById('view-final-btn');
+        const viewComputationBtn = document.getElementById('view-computation-btn');
+        const viewGradingScaleBtn = document.getElementById('view-grading-scale-btn');
+        const viewAttendancePolicyBtn = document.getElementById('view-attendance-policy-btn');
+        
+        // Modal elements
+        const modals = document.querySelectorAll('.modal');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        
+        // Search functionality
+        searchBtn.addEventListener('click', function() {
+            const studentNumber = studentNumberInput.value.trim();
+            const student = students.find(s => s.studentNumber === studentNumber);
+            
+            if (student) {
+                displayStudentData(student);
+                searchContainer.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+            }
+        });
+        
+        // Enter key for search
+        studentNumberInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+        
+        // Search another student
+        searchAnotherBtn.addEventListener('click', function() {
+            searchContainer.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+            studentNumberInput.value = '';
+            errorMessage.classList.add('hidden');
+        });
+        
+        // Display student data
+        function displayStudentData(student) {
+            // Student info
+            document.getElementById('student-name').textContent = student.name;
+            document.getElementById('student-number-display').textContent = `Student Number: ${student.studentNumber}`;
+            
+            // Status badge
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.textContent = student.interpretation;
+            
+            if (student.interpretation === "Passed") {
+                statusBadge.className = "interpretation-badge bg-green-500 text-white";
+            } else if (student.interpretation === "Incomplete") {
+                statusBadge.className = "interpretation-badge bg-yellow-500 text-white";
+            } else if (student.interpretation === "Unofficially Dropped") {
+                statusBadge.className = "interpretation-badge bg-red-500 text-white";
+            }
+            
+            // Final grades
+            document.getElementById('final-average').textContent = student.finalGradeAverage;
+            document.getElementById('grade-equivalent').textContent = student.finalGradeEquivalent;
+            
+            // Midterm grade
+            document.getElementById('midterm-grade').textContent = student.midterm.grade;
+            document.getElementById('midterm-average-display').textContent = `Average: ${student.midterm.average}`;
+            
+            // Final term grade
+            document.getElementById('final-grade').textContent = student.final.grade;
+            document.getElementById('final-average-display').textContent = `Average: ${student.final.average}`;
+            
+            // Attendance
+            const totalSessions = 16;
+            const attendancePercentage = (student.attendance / totalSessions) * 100;
+            document.getElementById('attendance-percentage').textContent = `${Math.round(attendancePercentage)}%`;
+            document.getElementById('attendance-count').textContent = `${student.attendance} out of ${totalSessions} sessions`;
+            
+            // Update attendance circle
+            const circle = document.getElementById('attendance-circle');
+            const circumference = 2 * Math.PI * 40; // 2πr where r=40
+            const dashArray = (attendancePercentage / 100) * circumference;
+            circle.style.strokeDasharray = `${dashArray} ${circumference}`;
+            
+            // Set attendance circle color based on percentage
+            if (attendancePercentage >= 80) {
+                circle.style.stroke = '#10b981'; // Green
+            } else if (attendancePercentage >= 60) {
+                circle.style.stroke = '#3b82f6'; // Blue
+            } else if (attendancePercentage >= 50) {
+                circle.style.stroke = '#f59e0b'; // Yellow
+            } else {
+                circle.style.stroke = '#ef4444'; // Red
+            }
+            
+            // Remarks
+            document.getElementById('remarks').textContent = student.remarks;
+            
+            // Midterm breakdown
+            document.getElementById('midterm-studentship').textContent = student.midterm.studentship;
+            document.getElementById('midterm-activities').textContent = student.midterm.activities;
+            document.getElementById('midterm-recitation').textContent = student.midterm.recitation;
+            document.getElementById('midterm-quizzes').textContent = student.midterm.quizzes;
+            document.getElementById('midterm-exam').textContent = student.midterm.exam;
+            document.getElementById('midterm-average').textContent = student.midterm.average;
+            document.getElementById('midterm-grade-value').textContent = student.midterm.grade;
+            
+            // Final breakdown
+            document.getElementById('final-studentship').textContent = student.final.studentship;
+            document.getElementById('final-activities').textContent = student.final.activities;
+            document.getElementById('final-recitation').textContent = student.final.recitation;
+            document.getElementById('final-quizzes').textContent = student.final.quizzes;
+            document.getElementById('final-exam').textContent = student.final.exam;
+            document.getElementById('final-average-value').textContent = student.final.average;
+            document.getElementById('final-grade-value').textContent = student.final.grade;
+        }
+        
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal when clicking outside content
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+        
+        // Close modal with close button
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = btn.closest('.modal');
+                closeModal(modal);
+            });
+        });
+        
+        // Open modals with buttons
+        viewMidtermBtn.addEventListener('click', () => openModal('midterm-modal'));
+        viewFinalBtn.addEventListener('click', () => openModal('final-modal'));
+        viewComputationBtn.addEventListener('click', () => openModal('computation-modal'));
+        viewGradingScaleBtn.addEventListener('click', () => openModal('grading-scale-modal'));
+        viewAttendancePolicyBtn.addEventListener('click', () => openModal('attendance-policy-modal'));
+        
+        // Close modals with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        closeModal(modal);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
